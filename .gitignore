@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+*.user
+.env
+.env.local
+appsettings.Development.json
+appsettings.Production.json
+uploads/
+TestResults/
+*.nupkg
