@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DrivingSchool.API/DrivingSchool.API.csproj" />
+    <Project Path="src/DrivingSchool.Application/DrivingSchool.Application.csproj" />
+    <Project Path="src/DrivingSchool.Domain/DrivingSchool.Domain.csproj" />
+    <Project Path="src/DrivingSchool.Infrastructure/DrivingSchool.Infrastructure.csproj" />
+    <Project Path="src/DrivingSchool.Mobile/DrivingSchool.Mobile.csproj" />
+    <Project Path="src/DrivingSchool.Web/DrivingSchool.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DrivingSchool.API.Tests/DrivingSchool.API.Tests.csproj" />
+    <Project Path="tests/DrivingSchool.Application.Tests/DrivingSchool.Application.Tests.csproj" />
+    <Project Path="tests/DrivingSchool.Domain.Tests/DrivingSchool.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
