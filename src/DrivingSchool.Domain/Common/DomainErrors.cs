@@ -58,4 +58,42 @@ public static class DomainErrors
         public static readonly Error InvalidCurrency =
             new("Money.InvalidCurrency", "Currency code must not be empty.");
     }
+
+    /// <summary>Errors related to the <c>User</c> aggregate.</summary>
+    public static class User
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("User");
+
+        public static readonly Error AlreadyInactive =
+            new("User.AlreadyInactive", "The user account is already inactive.");
+
+        public static readonly Error EmailAlreadyTaken =
+            new("User.EmailAlreadyTaken", "An account with this email address already exists.");
+    }
+
+    /// <summary>Errors related to authentication and token management.</summary>
+    public static class Auth
+    {
+        public static readonly Error InvalidCredentials =
+            new("Auth.InvalidCredentials", "Invalid email address or password.");
+
+        public static readonly Error InvalidRefreshToken =
+            new("Auth.InvalidRefreshToken", "The refresh token is invalid.");
+
+        public static readonly Error TokenAlreadyRevoked =
+            new("Auth.TokenAlreadyRevoked", "The refresh token has already been revoked.");
+
+        public static readonly Error TokenExpired =
+            new("Auth.TokenExpired", "The token has expired.");
+
+        public static readonly Error InvalidToken =
+            new("Auth.InvalidToken", "The token is invalid or does not match.");
+
+        public static readonly Error EmailAlreadyConfirmed =
+            new("Auth.EmailAlreadyConfirmed", "The email address has already been confirmed.");
+
+        public static readonly Error AccountInactive =
+            new("Auth.AccountInactive", "The user account has been deactivated.");
+    }
 }
