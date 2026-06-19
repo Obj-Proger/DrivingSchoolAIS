@@ -208,4 +208,58 @@ public static class DomainErrors
             new("TheoryLesson.MaterialNotFound",
                 "The specified material was not found in this lesson.");
     }
+
+    /// <summary>Errors related to the <c>PracticeSlot</c> aggregate.</summary>
+    public static class PracticeSlot
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("PracticeSlot");
+
+        public static readonly Error InvalidTimeRange =
+            new("PracticeSlot.InvalidTimeRange",
+                "The end time must be later than the start time.");
+
+        public static readonly Error NotAvailable =
+            new("PracticeSlot.NotAvailable",
+                "The slot is not available for booking.");
+
+        public static readonly Error NotBooked =
+            new("PracticeSlot.NotBooked",
+                "The slot is not currently booked and cannot be released.");
+
+        public static readonly Error AlreadyCompleted =
+            new("PracticeSlot.AlreadyCompleted",
+                "A completed slot cannot be cancelled.");
+    }
+
+    /// <summary>Errors related to the <c>PracticeBooking</c> aggregate.</summary>
+    public static class PracticeBooking
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("PracticeBooking");
+
+        public static readonly Error CannotCancel =
+            new("PracticeBooking.CannotCancel",
+                "Only a confirmed booking can be cancelled.");
+
+        public static readonly Error CannotComplete =
+            new("PracticeBooking.CannotComplete",
+                "Only a confirmed booking can be marked as completed.");
+
+        public static readonly Error CannotRate =
+            new("PracticeBooking.CannotRate",
+                "Only a completed booking can be rated.");
+
+        public static readonly Error AlreadyRated =
+            new("PracticeBooking.AlreadyRated",
+                "This booking has already been rated.");
+
+        public static readonly Error InvalidRating =
+            new("PracticeBooking.InvalidRating",
+                "Rating must be a value between 1 and 5.");
+
+        public static readonly Error InvalidSkillName =
+            new("PracticeBooking.InvalidSkillName",
+                "Skill name must not be empty.");
+    }
 }
