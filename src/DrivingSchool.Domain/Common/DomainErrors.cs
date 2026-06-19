@@ -117,4 +117,60 @@ public static class DomainErrors
         public static readonly Error AlreadyCompleted =
             new("StaffTask.AlreadyCompleted", "The task has already been completed.");
     }
+
+    /// <summary>Errors related to the <c>Course</c> aggregate.</summary>
+    public static class Course
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Course");
+
+        public static readonly Error InvalidHours =
+            new("Course.InvalidHours",
+                "Theory and practice hours must each be greater than zero.");
+
+        public static readonly Error Inactive =
+            new("Course.Inactive",
+                "Cannot create a contract for an inactive course.");
+    }
+
+    /// <summary>Errors related to the <c>Contract</c> aggregate.</summary>
+    public static class Contract
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Contract");
+
+        public static readonly Error NumberEmpty =
+            new("Contract.NumberEmpty", "Contract number must not be empty.");
+
+        public static readonly Error InvalidDateRange =
+            new("Contract.InvalidDateRange",
+                "The end date must be later than the start date.");
+
+        public static readonly Error AlreadyClosed =
+            new("Contract.AlreadyClosed",
+                "The contract has already been completed or terminated.");
+    }
+
+    /// <summary>Errors related to the <c>Group</c> aggregate.</summary>
+    public static class Group
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Group");
+
+        public static readonly Error Full =
+            new("Group.Full",
+                "The group has reached its maximum capacity or is no longer accepting members.");
+
+        public static readonly Error AlreadyMember =
+            new("Group.AlreadyMember",
+                "This contract is already enrolled in the group.");
+
+        public static readonly Error MemberNotFound =
+            new("Group.MemberNotFound",
+                "The specified contract is not a member of this group.");
+
+        public static readonly Error InvalidCapacity =
+            new("Group.InvalidCapacity",
+                "Maximum student count must be greater than zero.");
+    }
 }
