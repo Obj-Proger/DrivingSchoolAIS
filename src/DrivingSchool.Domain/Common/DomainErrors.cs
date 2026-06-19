@@ -173,4 +173,39 @@ public static class DomainErrors
             new("Group.InvalidCapacity",
                 "Maximum student count must be greater than zero.");
     }
+
+    /// <summary>Errors related to the <c>TheoryLesson</c> aggregate.</summary>
+    public static class TheoryLesson
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("TheoryLesson");
+
+        public static readonly Error InvalidDuration =
+            new("TheoryLesson.InvalidDuration",
+                "Lesson duration must be greater than zero minutes.");
+
+        public static readonly Error PastScheduledTime =
+            new("TheoryLesson.PastScheduledTime",
+                "A lesson cannot be scheduled in the past.");
+
+        public static readonly Error CannotComplete =
+            new("TheoryLesson.CannotComplete",
+                "Only a scheduled lesson can be marked as completed.");
+
+        public static readonly Error CannotCancel =
+            new("TheoryLesson.CannotCancel",
+                "Only a scheduled lesson can be cancelled.");
+
+        public static readonly Error CannotReschedule =
+            new("TheoryLesson.CannotReschedule",
+                "Only a scheduled lesson can be rescheduled or updated.");
+
+        public static readonly Error IsCancelled =
+            new("TheoryLesson.IsCancelled",
+                "Cannot modify a cancelled lesson.");
+
+        public static readonly Error MaterialNotFound =
+            new("TheoryLesson.MaterialNotFound",
+                "The specified material was not found in this lesson.");
+    }
 }
