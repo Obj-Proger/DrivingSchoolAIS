@@ -51,7 +51,7 @@ public sealed class User : BaseEntity
     /// <summary>Gets the collection of refresh tokens associated with this user.</summary>
     public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
 
-    // ── Factory ──────────────────────────────────────────────────────────────
+    // Factory
 
     /// <summary>
     /// Creates and initialises a new user account.
@@ -87,7 +87,7 @@ public sealed class User : BaseEntity
         return Result.Success(user);
     }
 
-    // ── Refresh Token Management ──────────────────────────────────────────────
+    // Refresh Token Management
 
     /// <summary>
     /// Adds a new refresh token, removing all expired and revoked tokens first.
@@ -131,7 +131,7 @@ public sealed class User : BaseEntity
     public void RevokeAllRefreshTokens()
         => _refreshTokens.ForEach(t => t.Revoke());
 
-    // ── Email Confirmation ────────────────────────────────────────────────────
+    // Email Confirmation
 
     /// <summary>
     /// Confirms the user's email address using the provided token.
@@ -172,7 +172,7 @@ public sealed class User : BaseEntity
         return token;
     }
 
-    // ── Password Reset ────────────────────────────────────────────────────────
+    // Password Reset
 
     /// <summary>
     /// Generates a password reset token valid for one hour.
@@ -212,7 +212,7 @@ public sealed class User : BaseEntity
         return Result.Success();
     }
 
-    // ── Profile Management ────────────────────────────────────────────────────
+    // Profile Management
 
     /// <summary>
     /// Updates the user's profile information.
@@ -238,7 +238,7 @@ public sealed class User : BaseEntity
         RevokeAllRefreshTokens();
     }
 
-    // ── Status & Role ─────────────────────────────────────────────────────────
+    // Status & Role
 
     /// <summary>
     /// Deactivates the user account, preventing further logins.
@@ -266,7 +266,7 @@ public sealed class User : BaseEntity
     /// <summary>Records the current UTC timestamp as the user's last login time.</summary>
     public void RecordLogin() => LastLoginAt = DateTime.UtcNow;
 
-    // ── Private Helpers ───────────────────────────────────────────────────────
+    // Private Helpers
 
     /// <summary>
     /// Generates a cryptographically secure random token as a 64-character hexadecimal string.

@@ -96,4 +96,25 @@ public static class DomainErrors
         public static readonly Error AccountInactive =
             new("Auth.AccountInactive", "The user account has been deactivated.");
     }
+
+    /// <summary>Errors related to the <c>Lead</c> aggregate.</summary>
+    public static class Lead
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Lead");
+
+        public static readonly Error AlreadyInTerminalState =
+            new("Lead.AlreadyInTerminalState",
+                "Cannot modify a lead that has already been converted or marked as lost.");
+    }
+
+    /// <summary>Errors related to the <c>StaffTask</c> aggregate.</summary>
+    public static class StaffTask
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("StaffTask");
+
+        public static readonly Error AlreadyCompleted =
+            new("StaffTask.AlreadyCompleted", "The task has already been completed.");
+    }
 }
