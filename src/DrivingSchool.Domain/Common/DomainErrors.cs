@@ -262,4 +262,72 @@ public static class DomainErrors
             new("PracticeBooking.InvalidSkillName",
                 "Skill name must not be empty.");
     }
+
+    /// <summary>Errors related to the <c>Question</c> aggregate.</summary>
+    public static class Question
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Question");
+
+        public static readonly Error InsufficientOptions =
+            new("Question.InsufficientOptions",
+                "A question must have at least two answer options.");
+
+        public static readonly Error InvalidCorrectOptionIndex =
+            new("Question.InvalidCorrectOptionIndex",
+                "The correct option index is out of range.");
+    }
+
+    /// <summary>Errors related to the <c>TestTemplate</c> aggregate.</summary>
+    public static class TestTemplate
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("TestTemplate");
+
+        public static readonly Error InvalidQuestionCount =
+            new("TestTemplate.InvalidQuestionCount",
+                "Question count must be greater than zero.");
+
+        public static readonly Error InvalidTimeLimit =
+            new("TestTemplate.InvalidTimeLimit",
+                "Time limit must be greater than zero minutes.");
+
+        public static readonly Error InvalidPassScore =
+            new("TestTemplate.InvalidPassScore",
+                "Pass score must be greater than zero and not exceed the question count.");
+
+        public static readonly Error InvalidAutoAssignInterval =
+            new("TestTemplate.InvalidAutoAssignInterval",
+                "Auto-assign interval must be greater than zero when auto-assign is enabled.");
+    }
+
+    /// <summary>Errors related to the <c>TestSession</c> aggregate.</summary>
+    public static class TestSession
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("TestSession");
+
+        public static readonly Error NotInProgress =
+            new("TestSession.NotInProgress",
+                "This operation requires the session to be in progress.");
+
+        public static readonly Error TimedOut =
+            new("TestSession.TimedOut",
+                "The session time limit has elapsed.");
+
+        public static readonly Error AlreadyAnswered =
+            new("TestSession.AlreadyAnswered",
+                "This question has already been answered in the current session.");
+    }
+
+    /// <summary>Errors related to the <c>ExamEvent</c> aggregate.</summary>
+    public static class ExamEvent
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("ExamEvent");
+
+        public static readonly Error TheoryRequiresTemplate =
+            new("ExamEvent.TheoryRequiresTemplate",
+                "A theory exam event must reference a test template.");
+    }
 }
