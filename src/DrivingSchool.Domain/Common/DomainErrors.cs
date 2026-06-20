@@ -3,11 +3,8 @@
 /// <summary>
 /// Centralised catalogue of domain errors grouped by aggregate or value object.
 /// Each nested static class corresponds to a specific domain concept.
-/// </summary>
-/// <remarks>
-/// New error groups are added as new aggregates are introduced.
 /// Error codes follow the convention: <c>Concept.ErrorName</c>.
-/// </remarks>
+/// </summary>
 public static class DomainErrors
 {
     /// <summary>Errors related to the <c>Email</c> value object.</summary>
@@ -69,7 +66,8 @@ public static class DomainErrors
             new("User.AlreadyInactive", "The user account is already inactive.");
 
         public static readonly Error EmailAlreadyTaken =
-            new("User.EmailAlreadyTaken", "An account with this email address already exists.");
+            new("User.EmailAlreadyTaken",
+                "An account with this email address already exists.");
     }
 
     /// <summary>Errors related to authentication and token management.</summary>
@@ -91,7 +89,8 @@ public static class DomainErrors
             new("Auth.InvalidToken", "The token is invalid or does not match.");
 
         public static readonly Error EmailAlreadyConfirmed =
-            new("Auth.EmailAlreadyConfirmed", "The email address has already been confirmed.");
+            new("Auth.EmailAlreadyConfirmed",
+                "The email address has already been confirmed.");
 
         public static readonly Error AccountInactive =
             new("Auth.AccountInactive", "The user account has been deactivated.");
@@ -159,7 +158,8 @@ public static class DomainErrors
 
         public static readonly Error Full =
             new("Group.Full",
-                "The group has reached its maximum capacity or is no longer accepting members.");
+                "The group has reached its maximum capacity " +
+                "or is no longer accepting members.");
 
         public static readonly Error AlreadyMember =
             new("Group.AlreadyMember",
@@ -298,7 +298,8 @@ public static class DomainErrors
 
         public static readonly Error InvalidAutoAssignInterval =
             new("TestTemplate.InvalidAutoAssignInterval",
-                "Auto-assign interval must be greater than zero when auto-assign is enabled.");
+                "Auto-assign interval must be greater than zero " +
+                "when auto-assign is enabled.");
     }
 
     /// <summary>Errors related to the <c>TestSession</c> aggregate.</summary>
@@ -318,6 +319,10 @@ public static class DomainErrors
         public static readonly Error AlreadyAnswered =
             new("TestSession.AlreadyAnswered",
                 "This question has already been answered in the current session.");
+
+        public static readonly Error ActiveSessionExists =
+            new("TestSession.ActiveSessionExists",
+                "The student already has an active test session in progress.");
     }
 
     /// <summary>Errors related to the <c>ExamEvent</c> aggregate.</summary>

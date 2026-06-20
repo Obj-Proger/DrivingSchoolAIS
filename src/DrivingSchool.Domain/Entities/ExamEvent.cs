@@ -1,5 +1,6 @@
 ﻿using DrivingSchool.Domain.Common;
 using DrivingSchool.Domain.Enums;
+using DrivingSchool.Domain.Events;
 
 namespace DrivingSchool.Domain.Entities;
 
@@ -53,13 +54,17 @@ public sealed class ExamEvent : BaseEntity
         if (type == ExamType.Theory && templateId is null)
             return Result.Failure<ExamEvent>(DomainErrors.ExamEvent.TheoryRequiresTemplate);
 
-        return Result.Success(new ExamEvent
+        var exam = new ExamEvent
         {
             GroupId = groupId,
             ScheduledAt = scheduledAt,
             Type = type,
             TemplateId = templateId
-        });
+        };
+
+        exam.RaiseDomainEvent(new ExamScheduledEvent(exam.Id, groupId, scheduledAt, type));
+
+        return Result.Success(exam);
     }
 
     // Behaviour
