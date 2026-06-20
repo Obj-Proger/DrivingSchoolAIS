@@ -372,4 +372,41 @@ public static class DomainErrors
             new("Message.CannotDeleteOthers",
                 "A user may only delete their own messages.");
     }
+
+    /// <summary>Errors related to the <c>Payment</c> aggregate.</summary>
+    public static class Payment
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Payment");
+
+        public static readonly Error AlreadyProcessed =
+            new("Payment.AlreadyProcessed",
+                "Only a pending payment can be confirmed.");
+
+        public static readonly Error CannotRefund =
+            new("Payment.CannotRefund",
+                "Only a completed payment can be refunded.");
+    }
+
+    /// <summary>Errors related to the <c>Notification</c> entity.</summary>
+    public static class Notification
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Notification");
+    }
+
+    /// <summary>Errors related to the <c>Document</c> entity.</summary>
+    public static class Document
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Document");
+
+        public static readonly Error FileTooLarge =
+            new("Document.FileTooLarge",
+                "The uploaded file exceeds the maximum allowed size.");
+
+        public static readonly Error InvalidContentType =
+            new("Document.InvalidContentType",
+                "The file type is not permitted.");
+    }
 }
