@@ -330,4 +330,46 @@ public static class DomainErrors
             new("ExamEvent.TheoryRequiresTemplate",
                 "A theory exam event must reference a test template.");
     }
+
+    /// <summary>Errors related to the <c>Chat</c> aggregate.</summary>
+    public static class Chat
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Chat");
+
+        public static readonly Error AlreadyParticipant =
+            new("Chat.AlreadyParticipant",
+                "The user is already a participant in this chat.");
+
+        public static readonly Error ParticipantNotFound =
+            new("Chat.ParticipantNotFound",
+                "The specified user is not a participant in this chat.");
+
+        public static readonly Error CannotRemoveLastAdmin =
+            new("Chat.CannotRemoveLastAdmin",
+                "The last administrator cannot be removed from the chat.");
+
+        public static readonly Error CannotWrite =
+            new("Chat.CannotWrite",
+                "The user does not have write access to this chat.");
+
+        public static readonly Error InvalidTypeForCreate =
+            new("Chat.InvalidTypeForCreate",
+                "Direct chats must be created using the dedicated factory method.");
+    }
+
+    /// <summary>Errors related to the <c>Message</c> entity.</summary>
+    public static class Message
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Message");
+
+        public static readonly Error AlreadyDeleted =
+            new("Message.AlreadyDeleted",
+                "The message has already been deleted.");
+
+        public static readonly Error CannotDeleteOthers =
+            new("Message.CannotDeleteOthers",
+                "A user may only delete their own messages.");
+    }
 }
