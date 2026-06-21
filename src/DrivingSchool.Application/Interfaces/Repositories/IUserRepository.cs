@@ -45,4 +45,16 @@ public interface IUserRepository
 
     /// <summary>Marks an existing user as modified.</summary>
     void Update(User user);
+
+    /// <summary>
+    /// Returns the user whose email confirmation token matches the specified value,
+    /// or <c>null</c> if not found or already confirmed.
+    /// </summary>
+    Task<User?> GetByEmailConfirmationTokenAsync(string token, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns the user whose password reset token matches the specified value,
+    /// or <c>null</c> if not found or expired.
+    /// </summary>
+    Task<User?> GetByPasswordResetTokenAsync(string token, CancellationToken ct = default);
 }

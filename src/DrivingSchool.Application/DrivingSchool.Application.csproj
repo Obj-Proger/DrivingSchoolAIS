@@ -7,19 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="BCrypt.Net-Next" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Mapster" />
     <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DrivingSchool.Domain\DrivingSchool.Domain.csproj" />
+	  <ProjectReference Include="..\DrivingSchool.Domain\DrivingSchool.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
     <Folder Include="EventHandlers\" />
   </ItemGroup>
 
