@@ -42,11 +42,23 @@ public sealed class User : BaseEntity
     /// <summary>Gets the UTC timestamp of the user's last successful login, or <c>null</c> if never logged in.</summary>
     public DateTime? LastLoginAt { get; private set; }
 
-    // Token fields — intentionally not exposed as public properties
-    internal string? EmailConfirmationToken { get; private set; }
-    internal DateTime? EmailConfirmationTokenExpiry { get; private set; }
-    internal string? PasswordResetToken { get; private set; }
-    internal DateTime? PasswordResetTokenExpiry { get; private set; }
+    /// <summary>
+    /// The email confirmation token sent to the user on registration.
+    /// Public so the Application layer can include it in the confirmation email.
+    /// </summary>
+    public string? EmailConfirmationToken { get; private set; }
+
+    /// <summary>UTC expiry of the email confirmation token.</summary>
+    public DateTime? EmailConfirmationTokenExpiry { get; private set; }
+
+    /// <summary>
+    /// The password reset token sent to the user via email.
+    /// Public so the repository can query by this value.
+    /// </summary>
+    public string? PasswordResetToken { get; private set; }
+
+    /// <summary>UTC expiry of the password reset token.</summary>
+    public DateTime? PasswordResetTokenExpiry { get; private set; }
 
     /// <summary>Gets the collection of refresh tokens associated with this user.</summary>
     public IReadOnlyList<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
