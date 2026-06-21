@@ -12,3 +12,4 @@ global using DrivingSchool.Domain.Enums;
 global using DrivingSchool.Domain.Events;
 global using DrivingSchool.Domain.ValueObjects;
 global using DrivingSchool.Application.Common;
+global using DrivingSchool.Application.Interfaces.Repositories;
