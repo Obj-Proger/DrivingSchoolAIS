@@ -47,6 +47,12 @@ public sealed class Lead : BaseEntity
     /// <summary>Gets an optional free-text comment about the lead.</summary>
     public string? Comment { get; private set; }
 
+    /// <summary>
+    /// Gets the identifier of the branch this lead was acquired for,
+    /// or <c>null</c> if not yet assigned to a specific branch.
+    /// </summary>
+    public Guid? BranchId { get; private set; }
+
     /// <summary>Gets the chronological list of notes added by staff members.</summary>
     public IReadOnlyList<LeadNote> Notes => _notes.AsReadOnly();
 
@@ -63,6 +69,7 @@ public sealed class Lead : BaseEntity
     /// <param name="courseInterest">The licence category the lead is interested in (optional).</param>
     /// <param name="comment">An optional free-text comment.</param>
     /// <param name="responsibleManagerId">The manager to assign immediately (optional).</param>
+    /// <param name="branchId">The branch this lead was acquired for (optional).</param>
     public static Lead Create(
         FullName fullName,
         PhoneNumber phone,
@@ -70,7 +77,8 @@ public sealed class Lead : BaseEntity
         Email? email = null,
         LicenseCategory? courseInterest = null,
         string? comment = null,
-        Guid? responsibleManagerId = null)
+        Guid? responsibleManagerId = null,
+        Guid? branchId = null)
         => new()
         {
             FullName = fullName,
@@ -80,6 +88,7 @@ public sealed class Lead : BaseEntity
             CourseInterest = courseInterest,
             Comment = comment,
             ResponsibleManagerId = responsibleManagerId,
+            BranchId = branchId,
             Status = LeadStatus.New
         };
 
@@ -101,6 +110,10 @@ public sealed class Lead : BaseEntity
         CourseInterest = courseInterest;
         Comment = comment;
     }
+
+    /// <summary>Assigns the lead to a branch.</summary>
+    /// <param name="branchId">The identifier of the branch.</param>
+    public void AssignBranch(Guid branchId) => BranchId = branchId;
 
     /// <summary>
     /// Assigns the lead to a manager.

@@ -43,6 +43,13 @@ public sealed class User : BaseEntity
     public DateTime? LastLoginAt { get; private set; }
 
     /// <summary>
+    /// Gets the identifier of the branch this staff member works at,
+    /// or <c>null</c> for students (whose branch is tracked via their <see cref="Contract"/>)
+    /// or for staff not yet assigned to a specific branch.
+    /// </summary>
+    public Guid? BranchId { get; private set; }
+
+    /// <summary>
     /// The email confirmation token sent to the user on registration.
     /// Public so the Application layer can include it in the confirmation email.
     /// </summary>
@@ -74,13 +81,15 @@ public sealed class User : BaseEntity
     /// <param name="phone">The validated phone number.</param>
     /// <param name="fullName">The user's full name.</param>
     /// <param name="role">The role to assign to the new user.</param>
+    /// <param name="branchId">The branch this staff member works at (optional; not applicable to students).</param>
     /// <returns>A successful <see cref="Result{User}"/> containing the new user.</returns>
     public static Result<User> Create(
         Email email,
         string passwordHash,
         PhoneNumber phone,
         FullName fullName,
-        UserRole role)
+        UserRole role,
+        Guid? branchId = null)
     {
         var user = new User
         {
@@ -90,7 +99,8 @@ public sealed class User : BaseEntity
             FullName = fullName,
             Role = role,
             IsActive = true,
-            IsEmailConfirmed = false
+            IsEmailConfirmed = false,
+            BranchId = branchId
         };
 
         user.RefreshEmailConfirmationToken();
@@ -274,6 +284,10 @@ public sealed class User : BaseEntity
     /// <summary>Assigns a new role to the user.</summary>
     /// <param name="role">The role to assign.</param>
     public void AssignRole(UserRole role) => Role = role;
+
+    /// <summary>Assigns the staff member to a branch.</summary>
+    /// <param name="branchId">The identifier of the branch.</param>
+    public void AssignBranch(Guid branchId) => BranchId = branchId;
 
     /// <summary>Records the current UTC timestamp as the user's last login time.</summary>
     public void RecordLogin() => LastLoginAt = DateTime.UtcNow;

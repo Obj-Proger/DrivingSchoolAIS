@@ -72,6 +72,12 @@ public sealed class Contract : BaseEntity
     /// <summary>Gets the UTC timestamp when the contract was terminated, or <c>null</c>.</summary>
     public DateTime? TerminatedAt { get; private set; }
 
+    /// <summary>
+    /// Gets the identifier of the branch this contract was signed at,
+    /// or <c>null</c> if not assigned to a specific branch.
+    /// </summary>
+    public Guid? BranchId { get; private set; }
+
     // Factory
 
     /// <summary>
@@ -83,6 +89,7 @@ public sealed class Contract : BaseEntity
     /// <param name="startDate">The training start date.</param>
     /// <param name="endDate">The scheduled training end date.</param>
     /// <param name="totalCost">The total cost of the programme.</param>
+    /// <param name="branchId">The branch this contract was signed at (optional).</param>
     /// <returns>
     /// A successful <see cref="Result{Contract}"/>, or a failure describing
     /// which validation rule was violated.
@@ -93,7 +100,8 @@ public sealed class Contract : BaseEntity
         Guid courseId,
         DateTime startDate,
         DateTime endDate,
-        Money totalCost)
+        Money totalCost,
+        Guid? branchId = null)
     {
         if (string.IsNullOrWhiteSpace(number))
             return Result.Failure<Contract>(DomainErrors.Contract.NumberEmpty);
@@ -114,7 +122,8 @@ public sealed class Contract : BaseEntity
             Status = ContractStatus.Active,
             SignedAt = DateTime.UtcNow,
             PracticeHoursCompleted = 0,
-            TheoryLessonsAttended = 0
+            TheoryLessonsAttended = 0,
+            BranchId = branchId
         });
     }
 
@@ -167,6 +176,10 @@ public sealed class Contract : BaseEntity
     /// <summary>Assigns the student to a training group.</summary>
     /// <param name="groupId">The identifier of the group.</param>
     public void AssignToGroup(Guid groupId) => GroupId = groupId;
+
+    /// <summary>Assigns the contract to a branch.</summary>
+    /// <param name="branchId">The identifier of the branch.</param>
+    public void AssignBranch(Guid branchId) => BranchId = branchId;
 
     // Status Management
 

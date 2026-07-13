@@ -34,6 +34,12 @@ public sealed class Group : BaseEntity
     /// <summary>Gets the current lifecycle status of the group.</summary>
     public GroupStatus Status { get; private set; }
 
+    /// <summary>
+    /// Gets the identifier of the branch this group studies at,
+    /// or <c>null</c> if not assigned to a specific branch.
+    /// </summary>
+    public Guid? BranchId { get; private set; }
+
     /// <summary>Gets the current members of the group.</summary>
     public IReadOnlyList<GroupMember> Members => _members.AsReadOnly();
 
@@ -56,6 +62,7 @@ public sealed class Group : BaseEntity
     /// <param name="startDate">The training start date.</param>
     /// <param name="maxStudents">The maximum number of members.</param>
     /// <param name="endDate">The optional scheduled end date.</param>
+    /// <param name="branchId">The branch this group studies at (optional).</param>
     /// <returns>
     /// A successful <see cref="Result{Group}"/>,
     /// or a failure with <see cref="DomainErrors.Group.InvalidCapacity"/>.
@@ -66,7 +73,8 @@ public sealed class Group : BaseEntity
         Guid teacherId,
         DateTime startDate,
         int maxStudents,
-        DateTime? endDate = null)
+        DateTime? endDate = null,
+        Guid? branchId = null)
     {
         if (maxStudents <= 0)
             return Result.Failure<Group>(DomainErrors.Group.InvalidCapacity);
@@ -79,7 +87,8 @@ public sealed class Group : BaseEntity
             StartDate = startDate,
             EndDate = endDate,
             MaxStudents = maxStudents,
-            Status = GroupStatus.Forming
+            Status = GroupStatus.Forming,
+            BranchId = branchId
         });
     }
 
@@ -131,6 +140,10 @@ public sealed class Group : BaseEntity
         MaxStudents = maxStudents;
         EndDate = endDate;
     }
+
+    /// <summary>Assigns the group to a branch.</summary>
+    /// <param name="branchId">The identifier of the branch.</param>
+    public void AssignBranch(Guid branchId) => BranchId = branchId;
 
     /// <summary>Transitions the group to <see cref="GroupStatus.Active"/>.</summary>
     public void Activate() => Status = GroupStatus.Active;

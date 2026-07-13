@@ -21,14 +21,29 @@ public sealed class TrainingGround : BaseEntity
     /// <summary>Gets a value indicating whether this ground is available for scheduling.</summary>
     public bool IsActive { get; private set; }
 
+    /// <summary>
+    /// Gets the identifier of the branch this training ground belongs to,
+    /// or <c>null</c> if not assigned to a specific branch.
+    /// </summary>
+    public Guid? BranchId { get; private set; }
+
     /// <summary>Creates a new active training ground.</summary>
-    public static TrainingGround Create(string name, string address, string? description = null)
+    /// <param name="name">The name of the training ground.</param>
+    /// <param name="address">The physical address.</param>
+    /// <param name="description">An optional description of the available facilities.</param>
+    /// <param name="branchId">The branch this ground belongs to (optional).</param>
+    public static TrainingGround Create(
+        string name,
+        string address,
+        string? description = null,
+        Guid? branchId = null)
         => new()
         {
             Name = name.Trim(),
             Address = address.Trim(),
             Description = description,
-            IsActive = true
+            IsActive = true,
+            BranchId = branchId
         };
 
     /// <summary>Updates the ground's information.</summary>
@@ -38,6 +53,10 @@ public sealed class TrainingGround : BaseEntity
         Address = address.Trim();
         Description = description;
     }
+
+    /// <summary>Assigns the training ground to a branch.</summary>
+    /// <param name="branchId">The identifier of the branch.</param>
+    public void AssignBranch(Guid branchId) => BranchId = branchId;
 
     /// <summary>Deactivates the training ground.</summary>
     public void Deactivate() => IsActive = false;

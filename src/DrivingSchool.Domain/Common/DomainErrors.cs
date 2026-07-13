@@ -414,4 +414,20 @@ public static class DomainErrors
             new("Document.InvalidContentType",
                 "The file type is not permitted.");
     }
+
+    /// <summary>Errors related to the <c>Branch</c> aggregate.</summary>
+    public static class Branch
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Branch");
+
+        public static readonly Error NameEmpty =
+            new("Branch.NameEmpty", "Branch name must not be empty.");
+
+        public static readonly Error AddressEmpty =
+            new("Branch.AddressEmpty", "Branch address must not be empty.");
+
+        public static readonly Error AlreadyInactive =
+            new("Branch.AlreadyInactive", "The branch is already inactive.");
+    }
 }

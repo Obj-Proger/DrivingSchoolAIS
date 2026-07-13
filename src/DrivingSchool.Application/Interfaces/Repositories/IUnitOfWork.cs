@@ -20,6 +20,7 @@ public interface IUnitOfWork : IAsyncDisposable
     IPaymentRepository Payments { get; }
     INotificationRepository Notifications { get; }
     IStaffTaskRepository StaffTasks { get; }
+    IBranchRepository Branches { get; }
 
     /// <summary>
     /// Persists all pending changes to the database.
