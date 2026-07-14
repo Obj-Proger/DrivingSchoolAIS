@@ -5,7 +5,7 @@ namespace DrivingSchool.Application.Features.Theory.Queries.GetTopicMaterials;
 
 /// <summary>
 /// Handles <see cref="GetTopicMaterialsQuery"/>.
-/// Returns topic-level materials across all lessons that covered this topic.
+/// Returns publicly available materials attached directly to the specified course topic.
 /// </summary>
 internal sealed class GetTopicMaterialsQueryHandler
     : IQueryHandler<GetTopicMaterialsQuery, IReadOnlyList<LessonMaterialDto>>
@@ -19,16 +19,10 @@ internal sealed class GetTopicMaterialsQueryHandler
         GetTopicMaterialsQuery query,
         CancellationToken cancellationToken)
     {
-        // Get all lessons covering this topic
-        // In practice this is better served by a dedicated materials repository
-        // For now: search across all lessons and collect public topic materials
-        var lessons = await _unitOfWork.TheoryLessons
-            .GetByGroupIdAsync(Guid.Empty, ct: cancellationToken);
+        var materials = await _unitOfWork.LessonMaterials
+            .GetByTopicIdAsync(query.TopicId, cancellationToken);
 
-        var materials = lessons
-            .Where(l => l.TopicId == query.TopicId)
-            .SelectMany(l => l.Materials)
-            .Where(m => m.TopicId == query.TopicId && m.IsPublic)
+        var dtos = materials
             .Select(m => new LessonMaterialDto(
                 m.Id,
                 m.LessonId,
@@ -39,10 +33,9 @@ internal sealed class GetTopicMaterialsQueryHandler
                 m.SizeBytes,
                 m.IsPublic,
                 m.CreatedAt))
-            .DistinctBy(m => m.FileUrl)
             .OrderBy(m => m.Title)
             .ToList();
 
-        return Result.Success<IReadOnlyList<LessonMaterialDto>>(materials);
+        return Result.Success<IReadOnlyList<LessonMaterialDto>>(dtos);
     }
 }

@@ -16,14 +16,26 @@ internal sealed class GetDrivingRoutesQueryHandler
         GetDrivingRoutesQuery query,
         CancellationToken cancellationToken)
     {
-        // DrivingRoute repository method resolved in Infrastructure
-        // For now returns empty — will be populated when IRouteRepository is added
         var instructor = await _unitOfWork.Users
             .GetByIdAsync(query.InstructorId, cancellationToken);
 
         if (instructor is null)
             return Result.Failure<IReadOnlyList<DrivingRouteDto>>(DomainErrors.User.NotFound);
 
-        return Result.Success<IReadOnlyList<DrivingRouteDto>>([]);
+        var routes = await _unitOfWork.DrivingRoutes
+            .GetByInstructorIdAsync(query.InstructorId, cancellationToken);
+
+        var dtos = routes
+            .Select(r => new DrivingRouteDto(
+                r.Id,
+                r.InstructorId,
+                instructor.FullName.DisplayName,
+                r.Name,
+                r.Description,
+                r.MapData,
+                r.CreatedAt))
+            .ToList();
+
+        return Result.Success<IReadOnlyList<DrivingRouteDto>>(dtos);
     }
 }

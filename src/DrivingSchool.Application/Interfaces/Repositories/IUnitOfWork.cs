@@ -21,6 +21,9 @@ public interface IUnitOfWork : IAsyncDisposable
     INotificationRepository Notifications { get; }
     IStaffTaskRepository StaffTasks { get; }
     IBranchRepository Branches { get; }
+    ITrainingGroundRepository TrainingGrounds { get; }
+    IDrivingRouteRepository DrivingRoutes { get; }
+    ILessonMaterialRepository LessonMaterials { get; }
 
     /// <summary>
     /// Persists all pending changes to the database.

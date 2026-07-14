@@ -16,8 +16,18 @@ internal sealed class GetTrainingGroundsQueryHandler
         GetTrainingGroundsQuery query,
         CancellationToken cancellationToken)
     {
-        // Resolved in Infrastructure via dedicated ground repository
-        await Task.CompletedTask;
-        return Result.Success<IReadOnlyList<TrainingGroundDto>>([]);
+        var grounds = await _unitOfWork.TrainingGrounds
+            .GetAllAsync(activeOnly: true, cancellationToken);
+
+        var dtos = grounds
+            .Select(g => new TrainingGroundDto(
+                g.Id,
+                g.Name,
+                g.Address,
+                g.Description,
+                g.IsActive))
+            .ToList();
+
+        return Result.Success<IReadOnlyList<TrainingGroundDto>>(dtos);
     }
 }

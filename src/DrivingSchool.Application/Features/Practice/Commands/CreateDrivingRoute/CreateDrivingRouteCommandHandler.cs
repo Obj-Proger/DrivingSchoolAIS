@@ -29,9 +29,7 @@ internal sealed class CreateDrivingRouteCommandHandler
             command.Description,
             command.MapData);
 
-        // DrivingRoute persistence deferred to Infrastructure enrichment
-        // In this commit the route is created at domain level
-        // Full repository integration added in Commit 3 (Infrastructure)
+        await _unitOfWork.DrivingRoutes.AddAsync(route, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success(route.Id);

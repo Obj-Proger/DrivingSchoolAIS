@@ -67,6 +67,8 @@ internal sealed class UploadMaterialCommandHandler
                 uploadResult.FileUrl,
                 uploadResult.ContentType,
                 uploadResult.SizeBytes);
+
+            await _unitOfWork.LessonMaterials.AddAsync(material, cancellationToken);
         }
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

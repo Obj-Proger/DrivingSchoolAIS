@@ -3,8 +3,13 @@
 namespace DrivingSchool.Application.Features.Theory.Commands.DeleteMaterial;
 
 /// <summary>
-/// Removes a material from a lesson and deletes the file from storage.
+/// Removes a material and deletes the associated file from storage.
 /// </summary>
+/// <param name="MaterialId">The identifier of the material to remove.</param>
+/// <param name="LessonId">
+/// The identifier of the owning lesson, when deleting a lesson-attached material.
+/// Leave <c>null</c> when deleting a topic-level material.
+/// </param>
 public sealed record DeleteMaterialCommand(
-    Guid LessonId,
-    Guid MaterialId) : ICommand;
+    Guid MaterialId,
+    Guid? LessonId = null) : ICommand;

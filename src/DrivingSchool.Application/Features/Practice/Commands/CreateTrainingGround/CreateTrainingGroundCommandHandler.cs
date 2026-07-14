@@ -21,7 +21,7 @@ internal sealed class CreateTrainingGroundCommandHandler
             command.Address,
             command.Description);
 
-        // Ground persistence resolved in Infrastructure
+        await _unitOfWork.TrainingGrounds.AddAsync(ground, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success(ground.Id);
