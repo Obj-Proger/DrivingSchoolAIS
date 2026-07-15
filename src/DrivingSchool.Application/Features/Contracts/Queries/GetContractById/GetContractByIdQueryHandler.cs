@@ -83,6 +83,7 @@ internal sealed class GetContractByIdQueryHandler
             contract.EndDate,
             contract.TerminationReason,
             contract.TerminatedAt,
+            contract.BranchId,
             paymentDtos));
     }
 }

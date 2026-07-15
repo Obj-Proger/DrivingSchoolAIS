@@ -15,4 +15,5 @@ public sealed record GroupDto(
     int MembersCount,
     int MaxStudents,
     DateTime StartDate,
-    DateTime? EndDate);
+    DateTime? EndDate,
+    Guid? BranchId);

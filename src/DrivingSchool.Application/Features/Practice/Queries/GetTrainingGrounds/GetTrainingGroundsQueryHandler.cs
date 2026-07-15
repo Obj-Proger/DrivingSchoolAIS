@@ -25,7 +25,8 @@ internal sealed class GetTrainingGroundsQueryHandler
                 g.Name,
                 g.Address,
                 g.Description,
-                g.IsActive))
+                g.IsActive,
+                g.BranchId))
             .ToList();
 
         return Result.Success<IReadOnlyList<TrainingGroundDto>>(dtos);

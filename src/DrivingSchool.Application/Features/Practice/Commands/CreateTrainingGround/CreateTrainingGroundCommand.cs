@@ -6,4 +6,5 @@ namespace DrivingSchool.Application.Features.Practice.Commands.CreateTrainingGro
 public sealed record CreateTrainingGroundCommand(
     string Name,
     string Address,
-    string? Description = null) : ICommand<Guid>;
+    string? Description = null,
+    Guid? BranchId = null) : ICommand<Guid>;

@@ -62,7 +62,8 @@ internal sealed class RegisterCommandHandler
             passwordHash,
             phoneResult.Value,
             fullNameResult.Value,
-            command.Role);
+            command.Role,
+            command.Role == UserRole.Student ? null : command.BranchId);
 
         if (userResult.IsFailure) return Result.Failure<AuthResponseDto>(userResult.Error);
 

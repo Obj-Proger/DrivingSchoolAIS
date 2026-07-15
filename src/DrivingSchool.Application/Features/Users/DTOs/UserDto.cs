@@ -17,4 +17,5 @@ public sealed record UserDto(
     bool IsActive,
     bool IsEmailConfirmed,
     DateTime? LastLoginAt,
-    DateTime CreatedAt);
+    DateTime CreatedAt,
+    Guid? BranchId);

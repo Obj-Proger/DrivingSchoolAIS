@@ -28,4 +28,5 @@ public sealed record ContractDetailDto(
     DateTime EndDate,
     string? TerminationReason,
     DateTime? TerminatedAt,
+    Guid? BranchId,
     IReadOnlyList<PaymentDto> Payments);

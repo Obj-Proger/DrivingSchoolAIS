@@ -50,5 +50,6 @@ internal sealed class GetAllUsersQueryHandler
         user.IsActive,
         user.IsEmailConfirmed,
         user.LastLoginAt,
-        user.CreatedAt);
+        user.CreatedAt,
+        user.BranchId);
 }

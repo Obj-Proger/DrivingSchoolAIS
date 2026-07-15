@@ -25,4 +25,5 @@ public sealed record ContractDto(
     DateTime StartDate,
     DateTime EndDate,
     string? TerminationReason,
-    DateTime? TerminatedAt);
+    DateTime? TerminatedAt,
+    Guid? BranchId);

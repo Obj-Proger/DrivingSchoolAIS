@@ -8,4 +8,5 @@ public sealed record TrainingGroundDto(
     string Name,
     string Address,
     string? Description,
-    bool IsActive);
+    bool IsActive,
+    Guid? BranchId);

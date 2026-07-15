@@ -15,6 +15,7 @@ public sealed record LeadDetailDto(
     LicenseCategory? CourseInterest,
     string? Comment,
     Guid? ContractId,
+    Guid? BranchId,
     IReadOnlyList<LeadNoteDto> Notes,
     DateTime CreatedAt,
     DateTime UpdatedAt);

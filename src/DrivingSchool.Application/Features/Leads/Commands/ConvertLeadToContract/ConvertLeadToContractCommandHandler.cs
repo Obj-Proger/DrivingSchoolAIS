@@ -51,7 +51,8 @@ internal sealed class ConvertLeadToContractCommandHandler
             command.CourseId,
             command.StartDate,
             command.EndDate,
-            priceResult.Value);
+            priceResult.Value,
+            lead.BranchId);
 
         if (contractResult.IsFailure)
             return Result.Failure<Guid>(contractResult.Error);

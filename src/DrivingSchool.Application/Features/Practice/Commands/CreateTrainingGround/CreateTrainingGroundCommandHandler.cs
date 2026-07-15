@@ -19,7 +19,8 @@ internal sealed class CreateTrainingGroundCommandHandler
         var ground = TrainingGround.Create(
             command.Name,
             command.Address,
-            command.Description);
+            command.Description,
+            command.BranchId);
 
         await _unitOfWork.TrainingGrounds.AddAsync(ground, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

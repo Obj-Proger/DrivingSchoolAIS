@@ -22,4 +22,10 @@ public sealed record RegisterCommand(
     UserRole Role = UserRole.Student,
 
     /// <summary>IP address of the requesting client, injected by the controller.</summary>
-    string IpAddress = "") : ICommand<AuthResponseDto>;
+    string IpAddress = "",
+
+    /// <summary>
+    /// The branch this staff member works at. Ignored for <see cref="UserRole.Student"/>,
+    /// whose branch is tracked via their <see cref="Contract"/> instead.
+    /// </summary>
+    Guid? BranchId = null) : ICommand<AuthResponseDto>;

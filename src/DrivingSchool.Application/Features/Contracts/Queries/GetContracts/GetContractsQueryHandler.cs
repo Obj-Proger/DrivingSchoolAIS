@@ -76,6 +76,7 @@ internal sealed class GetContractsQueryHandler
             contract.StartDate,
             contract.EndDate,
             contract.TerminationReason,
-            contract.TerminatedAt);
+            contract.TerminatedAt,
+            contract.BranchId);
     }
 }

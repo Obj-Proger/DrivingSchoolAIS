@@ -12,4 +12,5 @@ public sealed record CreateContractCommand(
     string Number,
     DateTime StartDate,
     DateTime EndDate,
-    decimal TotalCost) : ICommand<Guid>;
+    decimal TotalCost,
+    Guid? BranchId = null) : ICommand<Guid>;

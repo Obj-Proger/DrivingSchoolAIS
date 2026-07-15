@@ -45,7 +45,8 @@ internal sealed class CreateContractCommandHandler
             command.CourseId,
             command.StartDate,
             command.EndDate,
-            moneyResult.Value);
+            moneyResult.Value,
+            command.BranchId);
 
         if (contractResult.IsFailure)
             return Result.Failure<Guid>(contractResult.Error);

@@ -27,7 +27,8 @@ internal sealed class CreateGroupCommandHandler : ICommandHandler<CreateGroupCom
             command.TeacherId,
             command.StartDate,
             command.MaxStudents,
-            command.EndDate);
+            command.EndDate,
+            command.BranchId);
 
         if (groupResult.IsFailure)
             return Result.Failure<Guid>(groupResult.Error);

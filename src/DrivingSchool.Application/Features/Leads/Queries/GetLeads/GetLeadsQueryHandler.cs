@@ -69,6 +69,7 @@ internal sealed class GetLeadsQueryHandler
             lead.CourseInterest,
             lead.Comment,
             lead.ContractId,
+            lead.BranchId,
             lead.CreatedAt,
             lead.UpdatedAt);
 }

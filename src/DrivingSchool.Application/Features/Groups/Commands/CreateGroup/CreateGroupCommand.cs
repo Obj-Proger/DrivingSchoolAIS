@@ -9,4 +9,5 @@ public sealed record CreateGroupCommand(
     Guid TeacherId,
     DateTime StartDate,
     int MaxStudents,
-    DateTime? EndDate = null) : ICommand<Guid>;
+    DateTime? EndDate = null,
+    Guid? BranchId = null) : ICommand<Guid>;

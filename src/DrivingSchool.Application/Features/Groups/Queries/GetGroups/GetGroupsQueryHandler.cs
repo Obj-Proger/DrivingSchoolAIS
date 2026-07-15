@@ -53,6 +53,7 @@ internal sealed class GetGroupsQueryHandler
             group.Members.Count,
             group.MaxStudents,
             group.StartDate,
-            group.EndDate);
+            group.EndDate,
+            group.BranchId);
     }
 }

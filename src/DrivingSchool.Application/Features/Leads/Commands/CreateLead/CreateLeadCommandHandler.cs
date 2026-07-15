@@ -42,7 +42,8 @@ internal sealed class CreateLeadCommandHandler : ICommandHandler<CreateLeadComma
             email,
             command.CourseInterest,
             command.Comment,
-            command.ResponsibleManagerId);
+            command.ResponsibleManagerId,
+            command.BranchId);
 
         await _unitOfWork.Leads.AddAsync(lead, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

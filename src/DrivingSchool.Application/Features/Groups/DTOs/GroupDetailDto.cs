@@ -15,4 +15,5 @@ public sealed record GroupDetailDto(
     int MaxStudents,
     DateTime StartDate,
     DateTime? EndDate,
+    Guid? BranchId,
     IReadOnlyList<GroupMemberDto> Members);

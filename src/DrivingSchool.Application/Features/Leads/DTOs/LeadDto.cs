@@ -15,5 +15,6 @@ public sealed record LeadDto(
     LicenseCategory? CourseInterest,
     string? Comment,
     Guid? ContractId,
+    Guid? BranchId,
     DateTime CreatedAt,
     DateTime UpdatedAt);

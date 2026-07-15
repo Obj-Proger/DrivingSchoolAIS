@@ -14,4 +14,5 @@ public sealed record CreateLeadCommand(
     LeadSource Source,
     LicenseCategory? CourseInterest = null,
     string? Comment = null,
-    Guid? ResponsibleManagerId = null) : ICommand<Guid>;
+    Guid? ResponsibleManagerId = null,
+    Guid? BranchId = null) : ICommand<Guid>;
