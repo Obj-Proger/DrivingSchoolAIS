@@ -60,6 +60,9 @@ internal sealed class GetContractByIdQueryHandler
                 payment.CreatedAt));
         }
 
+        var course = await _unitOfWork.Courses
+            .GetByIdAsync(contract.CourseId, cancellationToken);
+
         return Result.Success(new ContractDetailDto(
             contract.Id,
             contract.Number,
@@ -67,8 +70,8 @@ internal sealed class GetContractByIdQueryHandler
             student?.FullName.DisplayName ?? "Unknown",
             student?.Phone.Value ?? string.Empty,
             contract.CourseId,
-            string.Empty,
-            LicenseCategory.B,
+            course?.Name ?? "Unknown",
+            course?.Category ?? LicenseCategory.B,
             contract.GroupId,
             groupName,
             contract.Status,

@@ -39,6 +39,22 @@ internal sealed class GetStudentBookingsQueryHandler
             ? await _unitOfWork.Users.GetByIdAsync(slot.InstructorId, ct)
             : null;
 
+        string? groundName = null;
+        if (booking.SelectedTrainingGroundId.HasValue)
+        {
+            var ground = await _unitOfWork.TrainingGrounds
+                .GetByIdAsync(booking.SelectedTrainingGroundId.Value, ct);
+            groundName = ground?.Name;
+        }
+
+        string? routeName = null;
+        if (booking.RouteId.HasValue)
+        {
+            var route = await _unitOfWork.DrivingRoutes
+                .GetByIdAsync(booking.RouteId.Value, ct);
+            routeName = route?.Name;
+        }
+
         var skillDtos = booking.SkillRatings
             .Select(r => new SkillRatingDto(r.SkillName, r.Score))
             .ToList();
@@ -53,14 +69,14 @@ internal sealed class GetStudentBookingsQueryHandler
             slot?.StartDateTime ?? default,
             slot?.EndDateTime ?? default,
             booking.SelectedTrainingGroundId,
-            null, // ground name resolved in Infrastructure
-            null, // vehicle model resolved in Infrastructure
-            null, // vehicle plate resolved in Infrastructure
+            groundName,
+            null, // vehicle model — no IVehicleRepository yet
+            null, // vehicle plate — no IVehicleRepository yet
             booking.Status,
             booking.StudentRating,
             booking.StudentReview,
             booking.RouteId,
-            null, // route name resolved in Infrastructure
+            routeName,
             booking.InstructorNote,
             booking.PracticeHoursLogged,
             skillDtos,

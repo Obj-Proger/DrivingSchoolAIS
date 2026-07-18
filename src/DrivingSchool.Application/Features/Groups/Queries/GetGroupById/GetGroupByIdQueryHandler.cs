@@ -51,12 +51,15 @@ internal sealed class GetGroupByIdQueryHandler
                 member.JoinedAt));
         }
 
+        var course = await _unitOfWork.Courses
+            .GetByIdAsync(group.CourseId, cancellationToken);
+
         return Result.Success(new GroupDetailDto(
             group.Id,
             group.Name,
             group.CourseId,
-            string.Empty,
-            LicenseCategory.B,
+            course?.Name ?? "Unknown",
+            course?.Category ?? LicenseCategory.B,
             group.TeacherId,
             teacher?.FullName.ShortName ?? "Unknown",
             group.Status,

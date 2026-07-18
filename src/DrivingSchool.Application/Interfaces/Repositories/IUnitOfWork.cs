@@ -24,6 +24,7 @@ public interface IUnitOfWork : IAsyncDisposable
     ITrainingGroundRepository TrainingGrounds { get; }
     IDrivingRouteRepository DrivingRoutes { get; }
     ILessonMaterialRepository LessonMaterials { get; }
+    ICourseRepository Courses { get; }
 
     /// <summary>
     /// Persists all pending changes to the database.

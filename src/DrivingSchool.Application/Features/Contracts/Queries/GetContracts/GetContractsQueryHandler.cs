@@ -52,8 +52,8 @@ internal sealed class GetContractsQueryHandler
             groupName = group?.Name;
         }
 
-        // Course name requires a Course repository — for now we use the CourseId label
-        // Full implementation resolves via ICourseRepository in Infrastructure
+        var course = await _unitOfWork.Courses.GetByIdAsync(contract.CourseId, ct);
+
         return new ContractDto(
             contract.Id,
             contract.Number,
@@ -61,8 +61,8 @@ internal sealed class GetContractsQueryHandler
             student?.FullName.DisplayName ?? "Unknown",
             student?.Phone.Value ?? string.Empty,
             contract.CourseId,
-            string.Empty, // resolved in Infrastructure
-            LicenseCategory.B, // resolved in Infrastructure
+            course?.Name ?? "Unknown",
+            course?.Category ?? LicenseCategory.B,
             contract.GroupId,
             groupName,
             contract.Status,

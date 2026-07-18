@@ -130,6 +130,10 @@ public static class DomainErrors
         public static readonly Error Inactive =
             new("Course.Inactive",
                 "Cannot create a contract for an inactive course.");
+
+        public static readonly Error TopicNotFound =
+            new("Course.TopicNotFound",
+                "The specified topic was not found in this course.");
     }
 
     /// <summary>Errors related to the <c>Contract</c> aggregate.</summary>

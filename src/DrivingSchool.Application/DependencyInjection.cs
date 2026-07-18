@@ -28,7 +28,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(assembly);
 
             // Pipeline behaviors execute in registration order (outermost first).
-            // Logging → Performance → Validation → Handler
+            // Logging -> Performance -> Validation -> Handler
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             cfg.AddOpenBehavior(typeof(PerformanceBehavior<,>));
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));

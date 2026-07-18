@@ -40,13 +40,14 @@ internal sealed class GetGroupsQueryHandler
     internal async Task<GroupDto> MapToDtoAsync(Group group, CancellationToken ct)
     {
         var teacher = await _unitOfWork.Users.GetByIdAsync(group.TeacherId, ct);
+        var course = await _unitOfWork.Courses.GetByIdAsync(group.CourseId, ct);
 
         return new GroupDto(
             group.Id,
             group.Name,
             group.CourseId,
-            string.Empty, // resolved in Infrastructure via ICourseRepository
-            LicenseCategory.B, // resolved in Infrastructure
+            course?.Name ?? "Unknown",
+            course?.Category ?? LicenseCategory.B,
             group.TeacherId,
             teacher?.FullName.ShortName ?? "Unknown",
             group.Status,
