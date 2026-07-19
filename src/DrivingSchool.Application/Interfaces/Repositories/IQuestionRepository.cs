@@ -24,10 +24,15 @@ public interface IQuestionRepository
     /// Returns a random selection of active questions matching the specified filters,
     /// used to populate a <see cref="TestSession"/>.
     /// </summary>
+    /// <param name="excludeIds">
+    /// Question identifiers to exclude from the selection — used when drawing bonus
+    /// questions so the same question is never asked twice within one session.
+    /// </param>
     Task<IReadOnlyList<Question>> GetRandomAsync(
         int count,
         IEnumerable<Guid>? topicIds = null,
         LicenseCategory? category = null,
+        IEnumerable<Guid>? excludeIds = null,
         CancellationToken ct = default);
 
     /// <summary>Adds a new question to the repository.</summary>

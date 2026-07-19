@@ -304,6 +304,11 @@ public static class DomainErrors
             new("TestTemplate.InvalidAutoAssignInterval",
                 "Auto-assign interval must be greater than zero " +
                 "when auto-assign is enabled.");
+
+        public static readonly Error InsufficientQuestions =
+            new("TestTemplate.InsufficientQuestions",
+                "Not enough active questions match this template's criteria " +
+                "to start a session.");
     }
 
     /// <summary>Errors related to the <c>TestSession</c> aggregate.</summary>
