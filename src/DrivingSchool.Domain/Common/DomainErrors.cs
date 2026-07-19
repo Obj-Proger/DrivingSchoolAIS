@@ -280,6 +280,10 @@ public static class DomainErrors
         public static readonly Error InvalidCorrectOptionIndex =
             new("Question.InvalidCorrectOptionIndex",
                 "The correct option index is out of range.");
+
+        public static readonly Error OptionNotFound =
+            new("Question.OptionNotFound",
+                "The specified option does not belong to this question.");
     }
 
     /// <summary>Errors related to the <c>TestTemplate</c> aggregate.</summary>
