@@ -20,8 +20,4 @@
 	  <ProjectReference Include="..\DrivingSchool.Domain\DrivingSchool.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EventHandlers\" />
-  </ItemGroup>
-
 </Project>

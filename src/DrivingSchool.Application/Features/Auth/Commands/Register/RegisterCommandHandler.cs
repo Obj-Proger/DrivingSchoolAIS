@@ -9,26 +9,22 @@ namespace DrivingSchool.Application.Features.Auth.Commands.Register;
 
 /// <summary>
 /// Handles <see cref="RegisterCommand"/>.
-/// Validates uniqueness, hashes the password, creates the user, issues tokens,
-/// and sends an email confirmation link.
+/// Validates uniqueness, hashes the password, creates the user, and issues tokens.
 /// </summary>
 internal sealed class RegisterCommandHandler
     : ICommandHandler<RegisterCommand, AuthResponseDto>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IJwtService _jwtService;
-    private readonly IEmailService _emailService;
     private readonly IConfiguration _configuration;
 
     public RegisterCommandHandler(
         IUnitOfWork unitOfWork,
         IJwtService jwtService,
-        IEmailService emailService,
         IConfiguration configuration)
     {
         _unitOfWork = unitOfWork;
         _jwtService = jwtService;
-        _emailService = emailService;
         _configuration = configuration;
     }
 
@@ -81,25 +77,14 @@ internal sealed class RegisterCommandHandler
 
         user.AddRefreshToken(refreshTokenEntity);
 
-        // 6. Persist
+        // 6. Persist. UserRegisteredEvent (raised inside User.Create) is dispatched
+        // after a successful save and triggers the confirmation email via
+        // UserRegisteredEventHandler — this handler does not send it directly,
+        // to avoid sending the email twice.
         await _unitOfWork.Users.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        // 7. Send email confirmation (fire-and-forget — do not block)
-        var confirmationToken = user.EmailConfirmationToken;
-        if (confirmationToken is not null)
-        {
-            _ = _emailService.SendTemplatedAsync(
-                to: user.Email.Value,
-                templateName: "EmailConfirmation",
-                variables: new Dictionary<string, string>
-                {
-                    ["UserName"] = user.FullName.FirstName,
-                    ["ConfirmationToken"] = confirmationToken
-                });
-        }
-
-        // 8. Build response
+        // 7. Build response
         var expiryMinutes = int.Parse(_configuration["JWT_EXPIRY_MINUTES"] ?? "15");
 
         return Result.Success(new AuthResponseDto(

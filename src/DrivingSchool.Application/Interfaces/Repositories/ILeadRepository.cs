@@ -31,4 +31,16 @@ public interface ILeadRepository
 
     /// <summary>Marks an existing lead as modified.</summary>
     void Update(Lead lead);
+
+    /// <summary>
+    /// Returns lead and conversion counts grouped by acquisition source,
+    /// for leads created within the specified date range.
+    /// </summary>
+    Task<IReadOnlyList<LeadSourceStats>> GetStatsBySourceAsync(
+        DateTime from,
+        DateTime to,
+        CancellationToken ct = default);
 }
+
+/// <summary>Lead volume and conversion count for a single acquisition source.</summary>
+public sealed record LeadSourceStats(LeadSource Source, int TotalCount, int ConvertedCount);

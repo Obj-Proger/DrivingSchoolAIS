@@ -16,7 +16,7 @@ public interface INotificationSender
         string body,
         NotificationType type,
         string? actionUrl = null,
-        CancellationToken ct = default);
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Sends a notification to all members of the specified group
@@ -28,7 +28,7 @@ public interface INotificationSender
         string body,
         NotificationType type,
         string? actionUrl = null,
-        CancellationToken ct = default);
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Sends a notification to all users with the specified role
@@ -40,5 +40,5 @@ public interface INotificationSender
         string body,
         NotificationType type,
         string? actionUrl = null,
-        CancellationToken ct = default);
+        CancellationToken cancellationToken = default);
 }

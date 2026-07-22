@@ -143,6 +143,20 @@ public sealed class Contract : BaseEntity
             : Money.Zero();
     }
 
+    /// <summary>
+    /// Reverses a previously recorded payment (e.g. following a refund) and
+    /// recalculates the outstanding debt.
+    /// </summary>
+    /// <param name="refundedAmount">The amount being refunded.</param>
+    public void ReversePayment(Money refundedAmount)
+    {
+        var remainingPaid = PaidAmount.Amount - refundedAmount.Amount;
+        PaidAmount = remainingPaid > 0 ? Money.Create(remainingPaid).Value : Money.Zero();
+
+        var newDebt = TotalCost.Amount - PaidAmount.Amount;
+        DebtAmount = newDebt > 0 ? Money.Create(newDebt).Value : Money.Zero();
+    }
+
     // Training Progress
 
     /// <summary>

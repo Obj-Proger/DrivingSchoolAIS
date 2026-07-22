@@ -48,5 +48,11 @@ public enum NotificationType
     TaskOverdue = 14,
 
     /// <summary>A general system-generated notification.</summary>
-    SystemMessage = 15
+    SystemMessage = 15,
+
+    /// <summary>Notification sent to a group's students when a theory lesson is cancelled.</summary>
+    LessonCancelled = 16,
+
+    /// <summary>Notification sent to the student when a payment is refunded.</summary>
+    PaymentRefunded = 17
 }

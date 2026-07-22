@@ -34,4 +34,16 @@ public interface IPaymentRepository
 
     /// <summary>Marks an existing payment as modified.</summary>
     void Update(Payment payment);
+
+    /// <summary>
+    /// Returns total confirmed revenue (<see cref="PaymentStatus.Completed"/> payments,
+    /// minus any subsequent refunds) grouped by calendar month within the range.
+    /// </summary>
+    Task<IReadOnlyList<MonthlyRevenue>> GetRevenueByMonthAsync(
+        DateTime from,
+        DateTime to,
+        CancellationToken ct = default);
 }
+
+/// <summary>Total confirmed revenue for a single calendar month.</summary>
+public sealed record MonthlyRevenue(int Year, int Month, decimal Total);
