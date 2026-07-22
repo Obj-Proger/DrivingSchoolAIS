@@ -48,4 +48,22 @@ public interface IPracticeBookingRepository
 
     /// <summary>Marks an existing booking as modified.</summary>
     void Update(PracticeBooking booking);
+
+    /// <summary>
+    /// Returns per-instructor workload statistics for bookings whose slot
+    /// starts within the specified date range.
+    /// </summary>
+    Task<IReadOnlyList<InstructorWorkloadStats>> GetInstructorWorkloadAsync(
+        DateTime from,
+        DateTime to,
+        CancellationToken ct = default);
 }
+
+/// <summary>Aggregate workload statistics for a single instructor.</summary>
+public sealed record InstructorWorkloadStats(
+    Guid InstructorId,
+    int TotalBookings,
+    int CompletedBookings,
+    int CancelledBookings,
+    int TotalHoursLogged,
+    double? AverageRating);

@@ -34,4 +34,21 @@ public interface IStaffTaskRepository
 
     /// <summary>Removes a task from the repository.</summary>
     void Delete(StaffTask task);
+
+    /// <summary>
+    /// Returns per-assignee task activity statistics for tasks created within
+    /// the specified date range. A task counts as overdue when it is not yet
+    /// <see cref="TaskItemStatus.Done"/> and its due date has passed.
+    /// </summary>
+    Task<IReadOnlyList<StaffActivityStats>> GetActivityStatsAsync(
+        DateTime from,
+        DateTime to,
+        CancellationToken ct = default);
 }
+
+/// <summary>Aggregate task activity statistics for a single staff member.</summary>
+public sealed record StaffActivityStats(
+    Guid AssignedToId,
+    int TotalCount,
+    int CompletedCount,
+    int OverdueCount);

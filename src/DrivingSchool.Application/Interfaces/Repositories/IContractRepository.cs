@@ -41,4 +41,21 @@ public interface IContractRepository
 
     /// <summary>Marks an existing contract as modified.</summary>
     void Update(Contract contract);
+
+    /// <summary>
+    /// Returns aggregate outcome statistics for contracts signed within the
+    /// specified date range.
+    /// </summary>
+    Task<ContractStats> GetStatsAsync(
+        DateTime from,
+        DateTime to,
+        CancellationToken ct = default);
 }
+
+/// <summary>Aggregate outcome statistics for a set of contracts.</summary>
+public sealed record ContractStats(
+    int TotalCount,
+    int ActiveCount,
+    int CompletedCount,
+    int TerminatedCount,
+    double? AverageQualityIndicator);
