@@ -374,6 +374,14 @@ public static class DomainErrors
         public static readonly Error InvalidTypeForCreate =
             new("Chat.InvalidTypeForCreate",
                 "Direct chats must be created using the dedicated factory method.");
+
+        public static readonly Error RequiresAdmin =
+            new("Chat.RequiresAdmin",
+                "Only a chat administrator may perform this action.");
+
+        public static readonly Error CannotRenameDirectChat =
+            new("Chat.CannotRenameDirectChat",
+                "A direct (one-on-one) chat cannot be renamed.");
     }
 
     /// <summary>Errors related to the <c>Message</c> entity.</summary>
@@ -426,6 +434,35 @@ public static class DomainErrors
         public static readonly Error InvalidContentType =
             new("Document.InvalidContentType",
                 "The file type is not permitted.");
+    }
+
+    /// <summary>Errors related to the <c>TrainingGround</c> aggregate.</summary>
+    public static class TrainingGround
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("TrainingGround");
+    }
+
+    /// <summary>Errors related to the <c>DrivingRoute</c> aggregate.</summary>
+    public static class DrivingRoute
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("DrivingRoute");
+
+        public static readonly Error CannotModifyOthers =
+            new("DrivingRoute.CannotModifyOthers",
+                "An instructor may only modify or delete their own routes.");
+    }
+
+    /// <summary>Errors related to the <c>Vehicle</c> aggregate.</summary>
+    public static class Vehicle
+    {
+        public static readonly Error NotFound =
+            Error.NotFound("Vehicle");
+
+        public static readonly Error DuplicatePlateNumber =
+            new("Vehicle.DuplicatePlateNumber",
+                "A vehicle with this plate number is already registered.");
     }
 
     /// <summary>Errors related to the <c>Branch</c> aggregate.</summary>

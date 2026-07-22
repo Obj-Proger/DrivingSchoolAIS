@@ -26,6 +26,8 @@ public interface IUnitOfWork : IAsyncDisposable
     ILessonMaterialRepository LessonMaterials { get; }
     ICourseRepository Courses { get; }
     ITestTemplateRepository TestTemplates { get; }
+    IVehicleRepository Vehicles { get; }
+    IDocumentRepository Documents { get; }
 
     /// <summary>
     /// Persists all pending changes to the database.
